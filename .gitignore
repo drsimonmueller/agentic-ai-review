@@ -1,0 +1,16 @@
+# generated outputs
+outputs/
+*.log
+Rplots.pdf
+
+# local preprocessing and internal notes (not shared on github)
+preprocessing/
+internal_notes/
+
+# local os and editor artifacts
+.DS_Store
+.Rhistory
+.RData
+.Rproj.user/
+__pycache__/
+*.pyc

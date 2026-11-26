@@ -1,0 +1,37 @@
+figure,panel,description,asset_type,script_path,output_file
+Fig1,a-c,"Peer-review visibility gap, autonomous multi-agent HPC framework, and 5-tier organizational architecture",scripted_headless,scripts/02_figures/fig01.R,outputs/figures/Figure_1/fig1_workflow_architecture.pdf
+Fig2,a,"Per-arm causal recall (bar + beeswarm) and UpSet experimental design matrix across N = 36 audits",scripted_headless,scripts/02_figures/fig02.R,outputs/figures/Figure_2/fig2a_recall_by_arm.pdf
+Fig2,b,"Causal-chain node recovery across N1-N7 split by primary raw data (E1) and supplementary table (E2) evidence",scripted_headless,scripts/02_figures/fig02.R,outputs/figures/Figure_2/fig2b_causal_node_recovery.pdf
+Fig2,c,"Control-trap audit outcomes across FP1-FP7 showing QC refutations, FP3 empirical revisions, and FP7 flags",scripted_headless,scripts/02_figures/fig02.R,outputs/figures/Figure_2/fig2c_control_trap_audit.pdf
+Fig2,d,"Blinded quality-control hypothesis falsification rate across models (bar + beeswarm)",scripted_headless,scripts/02_figures/fig02.R,outputs/figures/Figure_2/fig2d_qc_falsification_rate.pdf
+Fig2,e,"Log2-scaled wall-clock runtime and speed-recall Pareto frontier across N = 36 runs",scripted_headless,scripts/02_figures/fig02.R,outputs/figures/Figure_2/fig2e_runtime_vs_recall.pdf
+Fig2,composite,"Composite Figure 2 (panels a-e)",scripted_headless,scripts/02_figures/fig02.R,outputs/figures/Figure_2/Figure_2_composite.pdf
+Fig3,a,"Always-essential positive-control recall vs. DepMap 22Q2 Cas9 and sparse lncRNA calls across six lines",scripted_headless,scripts/02_figures/fig03.R,outputs/figures/Figure_3/fig3a_ae_recall_vs_depmap.pdf
+Fig3,b,"Positional RNA Pol III T>=4 termination effect in 23-nt core vs. 3' 7-nt extension and woCasRx controls",scripted_headless,scripts/02_figures/fig03.R,outputs/figures/Figure_3/fig3b_pol3_t4_positional.pdf
+Fig3,c,"Raw ENA paired-end DR recombination chimerism and resulting effective cellular coverage loss",scripted_headless,scripts/02_figures/fig03.R,outputs/figures/Figure_3/fig3c_plasmid_chimerism_coverage.pdf
+Fig3,d,"BsmBI molecular chronometer proving pre-Golden-Gate cloning recombination",scripted_headless,scripts/02_figures/fig03.R,outputs/figures/Figure_3/fig3d_bsmbi_chronometer.pdf
+Fig3,e,"In silico rescue paradox: 120 live MAGeCK RRA k-array simulations and 6-line power-matched / calibrated rescue",scripted_headless,scripts/02_figures/fig03.R,outputs/figures/Figure_3/fig3e_mageck_rra_cliff_rescue.pdf
+Fig3,composite,"Composite Figure 3 (panels a-e)",scripted_headless,scripts/02_figures/fig03.R,outputs/figures/Figure_3/Figure_3_composite.pdf
+Fig4,a,"Cross-run recovery of 19 recurring beyond-rubric discoveries across N = 36 audits",scripted_headless,scripts/02_figures/fig04.R,outputs/figures/Figure_4/fig4a_beyond_rubric_discoveries.pdf
+Fig4,b,"Univariate, multivariable, and cross-validated predictors of residual AE inertness among defect-free arrays",scripted_headless,scripts/02_figures/fig04.R,outputs/figures/Figure_4/fig4b_residual_ae_predictors.pdf
+Fig4,c,"Cold vs. Seeded audit rate of unexpressed called lncRNA hits and per-line zero-read distributions",scripted_headless,scripts/02_figures/fig04.R,outputs/figures/Figure_4/fig4c_cold_vs_seeded_silent_hits.pdf
+Fig4,d,"Empirical revision of FP3: silent Albarossa NE vs. expressed controls_library NE and CasRx collateral depletion",scripted_headless,scripts/02_figures/fig04.R,outputs/figures/Figure_4/fig4d_silent_ne_and_collateral.pdf
+Fig4,composite,"Composite Figure 4 (panels a-d)",scripted_headless,scripts/02_figures/fig04.R,outputs/figures/Figure_4/Figure_4_composite.pdf
+Table1,main,"Main Text Table 1: Ground-truth causal rubric, false-positive traps, and N = 36 agent recovery (ggplot2)",scripted_headless,scripts/03_tables/table01.R,outputs/tables/Table1_rubric_and_recovery.pdf
+ED1,a,"Full 6-line and union AE recall across FDR < 0.25 and < 0.05 vs. DepMap 22Q2 thresholds",scripted_headless,scripts/02_figures/ed01.R,outputs/figures/Extended_Data_1/ed1a_ae_recall_fdr_thresholds.pdf
+ED1,b,"Internal Pol III T>=4 depletion shift across all 6 CasRx+ screens vs. 3 woCasRx controls",scripted_headless,scripts/02_figures/ed01.R,outputs/figures/Extended_Data_1/ed1b_t4_lfc_distribution_6lines.pdf
+ED1,c,"Plasmid read-count distribution highlighting 522/522 BsmBI-defect dropouts (<30 reads)",scripted_headless,scripts/02_figures/ed01.R,outputs/figures/Extended_Data_1/ed1c_plasmid_and_bsmbi_dropouts.pdf
+ED1,composite,"Composite Extended Data Fig. 1",scripted_headless,scripts/02_figures/ed01.R,outputs/figures/Extended_Data_1/Extended_Data_1_composite.pdf
+ED2,a,"Unaggregated N = 36 (+1 extra) per-replicate causal-node recovery (N1-N7) ComplexHeatmap",scripted_headless,scripts/02_figures/ed02.R,outputs/figures/Extended_Data_2/ed2a_per_run_nodes_36.pdf
+ED2,b,"Unaggregated N = 36 (+1 extra) false-positive trap audit (FP1-FP7) ComplexHeatmap",scripted_headless,scripts/02_figures/ed02.R,outputs/figures/Extended_Data_2/ed2b_per_run_fp_traps_36.pdf
+ED2,composite,"Composite Extended Data Fig. 2 (ComplexHeatmap master scorecard)",scripted_headless,scripts/02_figures/ed02.R,outputs/figures/Extended_Data_2/Extended_Data_2_composite.pdf
+ED3,a,"Wall-clock runtime decomposition (active reasoning, Slurm compute, queue wait) across N = 36 runs",scripted_headless,scripts/02_figures/ed03.R,outputs/figures/Extended_Data_3/ed3a_runtime_decomposition.pdf
+ED3,b,"Slurm jobs submitted vs. analysis scripts executed across N = 36 runs",scripted_headless,scripts/02_figures/ed03.R,outputs/figures/Extended_Data_3/ed3b_slurm_and_scripts_footprint.pdf
+ED3,c,"Anthropic session token breakdown across 18 runs",scripted_headless,scripts/02_figures/ed03.R,outputs/figures/Extended_Data_3/ed3c_anthropic_tokens_cost.pdf
+ED3,d,"Confirmed findings vs. Tier 4 discarded hypotheses across all N = 36 runs",scripted_headless,scripts/02_figures/ed03.R,outputs/figures/Extended_Data_3/ed3d_tier4_qc_discard_yield.pdf
+ED3,composite,"Composite Extended Data Fig. 3",scripted_headless,scripts/02_figures/ed03.R,outputs/figures/Extended_Data_3/Extended_Data_3_composite.pdf
+ED4,a,"Matched Base vs. +Literature causal-node recall ablation on Claude Sonnet 5.5 and Gemini 4 Hydrogen (N = 24)",scripted_headless,scripts/02_figures/ed04.R,outputs/figures/Extended_Data_4/ed4a_ablation_recall_and_nodes.pdf
+ED4,b,"Matched Base vs. +Literature runtime, Tier 4 discards, discoveries, and Sonnet subagent safety stops",scripted_headless,scripts/02_figures/ed04.R,outputs/figures/Extended_Data_4/ed4b_ablation_runtime_and_subagents.pdf
+ED4,composite,"Composite Extended Data Fig. 4",scripted_headless,scripts/02_figures/ed04.R,outputs/figures/Extended_Data_4/Extended_Data_4_composite.pdf
+ED5,a,"Unaggregated 19 beyond-rubric discoveries x 37 runs ComplexHeatmap across models and framing arms",scripted_headless,scripts/02_figures/ed05.R,outputs/figures/Extended_Data_5/ed5a_discovery_model_matrix.pdf
+ED5,composite,"Composite Extended Data Fig. 5 (ComplexHeatmap discovery matrix)",scripted_headless,scripts/02_figures/ed05.R,outputs/figures/Extended_Data_5/Extended_Data_5_composite.pdf

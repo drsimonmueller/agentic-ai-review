@@ -1,0 +1,93 @@
+{
+  "total_albarossa_arrays": 78125,
+  "category_counts": {
+    "lncRNA": 75725,
+    "AE": 900,
+    "NE": 900,
+    "NT": 600
+  },
+  "unique_genes_in_table9": {
+    "AE": 300,
+    "NE": 300,
+    "NT": 600,
+    "lncRNA": 24171
+  },
+  "table12_total_rows": {
+    "AE": 300,
+    "NE": 300,
+    "lncRNA": 24171
+  },
+  "table12_tested_genes": {
+    "AE": 300,
+    "NE": 299,
+    "lncRNA": 23740
+  },
+  "table13_rows": 206,
+  "table13_unique_unified_id": 187,
+  "t4_counts": {
+    "has_T4_core23": 10073,
+    "has_T4_ext7_created": 5431,
+    "has_T4_any": 15082,
+    "has_T4_any_pct": 19.305,
+    "ae_has_T4_any": 135,
+    "ae_has_T4_core23": 97,
+    "ae_has_T4_ext7_created": 39
+  },
+  "bsmbi_counts": {
+    "has_bsmbi_fwd_spacer": 0,
+    "has_bsmbi_array_internal": 493,
+    "has_bsmbi_oligo_extra": 522,
+    "has_bsmbi_oligo_extra_pct": 0.6682,
+    "ae_has_bsmbi_oligo_extra": 5,
+    "bsmbi_dropout_lt30_count": 522,
+    "bsmbi_zero_count": 180,
+    "bsmbi_median_plasmid_count": 1.0,
+    "intact_median_plasmid_count": 261.0
+  },
+  "plasmid_dropout_lt30_total": 642,
+  "is_offtarget_total": 750,
+  "is_noisy_nan_pval_total": 1291,
+  "clean_arrays_total": 62523,
+  "clean_arrays_ae": 760,
+  "clean_arrays_ae_nonnull_no_offtarget": 757,
+  "ae_t4_lfc_shift": {
+    "all_900_ae_t4_median_lfc": -0.63484,
+    "all_900_ae_no_t4_median_lfc": -1.48588,
+    "all_900_ae_median_shift": 0.85104,
+    "nondropout_894_ae_t4_median_lfc": -0.63661,
+    "nondropout_894_ae_no_t4_median_lfc": -1.50453,
+    "nondropout_894_ae_median_shift": 0.86791
+  },
+  "generated_files": {
+    "albarossa_arrays_qc.tsv.gz": {
+      "rows": 78125,
+      "bytes": 3766945,
+      "md5": "4b6ecfaa941314670591c7abd881fdfe"
+    },
+    "ae_recall_vs_depmap_6lines.csv": {
+      "rows": 7,
+      "bytes": 1977,
+      "md5": "d40367b94760fb8f004f40300124be54"
+    },
+    "plasmid_chimerism_and_bsmbi.csv": {
+      "rows": 37,
+      "bytes": 7254,
+      "md5": "18e5b80326a465fe7da7b574cdf1e354"
+    },
+    "mageck_rescue_and_rra_cliff.csv": {
+      "rows": 378,
+      "bytes": 67613,
+      "md5": "85106903469e91c173132178f31f03c4"
+    },
+    "residual_ae_predictors.csv": {
+      "rows": 80,
+      "bytes": 13893,
+      "md5": "8cf7a0cd17a38aa5e96e2c0fccfcdcb9"
+    },
+    "lncrna_expression_and_collateral.csv": {
+      "rows": 38,
+      "bytes": 9642,
+      "md5": "b656e822ec418fb18308c2f2dcdf9505"
+    }
+  }
+}

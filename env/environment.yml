@@ -1,0 +1,19 @@
+name: agentic-ai-review
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-base=4.4.1
+  - r-tidyverse
+  - r-data.table
+  - r-patchwork
+  - r-scales
+  - r-ggrepel
+  - r-ggbeeswarm
+  - r-openxlsx
+  - r-yaml
+  - r-jsonlite
+  - bioconductor-complexheatmap
+  - r-circlize
+  - python=3.11
+  - coreutils

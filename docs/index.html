@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Autonomous Multi-Agent Peer Review — 36 Benchmark Audit Reports</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand" id="brandHome" role="button" tabindex="0">
+      <button class="btn mobile-menu-btn" id="mobileMenuBtn" type="button">☰ Runs</button>
+      <span class="brand-badge">Supplementary Archive</span>
+      <span class="brand-title">Autonomous Peer Review Benchmark<span class="brand-sub">36 Clean-Room Audits · 4 Frontier Models</span></span>
+    </div>
+    <div class="topbar-actions">
+      <a class="btn btn-ghost" href="https://github.com/drsimonmueller/agentic-ai-review" target="_blank" rel="noopener">GitHub Repo ↗</a>
+      <button class="btn" id="overviewBtn" type="button">All 36 Audits</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-controls">
+        <input class="search-input" id="searchInput" type="search" placeholder="Search reports, models, findings…" />
+        <div class="filter-label">Model</div>
+        <div class="pill-row" id="modelPills"></div>
+        <div class="filter-label">Experimental arm</div>
+        <div class="pill-row" id="condPills"></div>
+        <div class="filter-label">Causal recall</div>
+        <div class="pill-row" id="recallPills"></div>
+      </div>
+      <div class="run-list-count" id="runListCount"></div>
+      <div class="run-list" id="runList"></div>
+    </aside>
+
+    <main class="main" id="mainContent"></main>
+  </div>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <div class="lightbox-bar">
+      <span class="lightbox-title" id="lbTitle"></span>
+      <div style="display:flex;gap:6px">
+        <button class="lb-btn" id="lbPrev" type="button">← Prev</button>
+        <button class="lb-btn" id="lbNext" type="button">Next →</button>
+        <button class="lb-btn" id="lbZoom" type="button">Toggle 100%</button>
+        <button class="lb-btn" id="lbClose" type="button">Close (Esc)</button>
+      </div>
+    </div>
+    <div class="lightbox-stage" id="lbStage">
+      <img id="lbImg" src="" alt="" />
+    </div>
+  </div>
+
+  <script src="data/reports_data.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
