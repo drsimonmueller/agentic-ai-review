@@ -46,7 +46,7 @@ rows_spec <- tribble(
   "data", "N7", "Reduced statistical power",
     "Inactive T>=4 arrays and lower coverage reduce MAGeCK RRA power, causing false negatives, not false positives.", FALSE,
 
-  "section", "Pre-registered false-positive traps (FP1-FP7)", "", "", FALSE,
+  "section", "Pre-specified false-positive traps (FP1-FP7)", "", "", FALSE,
   "data", "FP1", "Read-counting error",
     "Claiming the read-counting pipeline is broken, though raw ENA reads reproduce published counts (r >= 0.996).", FALSE,
   "data", "FP2", "Non-targeting off-targets",

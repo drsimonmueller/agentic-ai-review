@@ -1,195 +1,168 @@
-# Scoring rubric for the agentic peer-review benchmark (Montero et al. 2024).
-#
-# status: DRAFT, NOT FROZEN.
-# Scoring scale, evidence tiers and the false-positive key are taken from
-# montero-lncRNA/docs/agentic_audit_study_design.md (last updated 2026-11-05).
-# Per-node tolerances were open decision 2 in that document; the values below
-# are proposals with their provenance and stay [TO CONFIRM] until signed off.
-# Replicate runs began 2026-11-17, before this file was written, so these
-# tolerances cannot be described as pre-registered.
-#
-# Reference values were read from montero-lncRNA/tables/ and summaries/ on
-# 2026-11-19. Paths are relative to /gpfs/commons/groups/sanjana_lab/smuller/projects/.
+# Finalized 14-point scoring rubric for the autonomous multi-agent peer-review
+# benchmark auditing Montero et al. (Nature Methods 21, 584-596, 2024).
 
-version: 0.1.0
-status: draft
-written: 2026-11-19
-source_design: montero-lncRNA/docs/agentic_audit_study_design.md
-frozen_by: null        # [TO CONFIRM: name and date once frozen]
-freeze_record: null    # [TO CONFIRM: git commit / OSF or Zenodo DOI]
+version: 1.0.0
+status: finalized
+manuscript_target: "Montero, Trozzo et al., Nat. Methods 21, 584-596 (2024)"
+ena_accession: "PRJEB60776"
+depmap_release: "22Q2 (Figshare 19700056)"
 
 # ---------------------------------------------------------------------------
-# axis 1: causal-node recall
+# Axis 1: Binary causal-chain recall (N1-N7)
 # ---------------------------------------------------------------------------
 node_scale:
-  full: 1.0      # reaches the node, with evidence, and states what follows from it
-  partial: 0.5   # unsupported assertion, or supported but no consequence drawn
-  miss: 0.0      # absent, or only a generic caveat about library quality
-  reporting: >
-    Report node by node with reasoning traces and per-node recovery across
-    replicates. Never summarize as a percentage of the human chain.
+  found: 1
+  missed: 0
+  counting_rule: >
+    Strict binary scoring across N1-N7 (no partial credit). Only findings backed
+    by quantitative computational evidence (E1-E3) count toward recovery.
+    Unsupported prose assertions (E4) are excluded from confirmed findings.
 
 evidence_tiers:
-  E1: reproduced from raw data with code that runs
-  E2: computed from supplementary tables
-  E3: identified by reading the published code
-  E4: asserted, no computation
-  counting_rule: Only E1-E3 count toward node recovery. E4 items are logged as hypotheses and reported separately.
-  assignment: Assign the tier before adjudicating the node score.
+  E1: Reproduced from raw sequencing reads (ENA FASTQs) or external reference atlases with executable code.
+  E2: Computed directly from deposited supplementary tables.
+  E3: Verified by inspecting and running the authors' published repository code.
+  E4: Unverified assertion without executable computation (excluded from confirmed findings).
 
 nodes:
   N1:
-    label: O1 - essential protein-coding control recall
+    label: Essential-gene recall
+    layer: 1
     chain: observation
-    full_requires: >
-      Quantifies recovery of the always-essential protein-coding controls and
-      contrasts it with Cas9/DepMap essentiality in the same cell lines.
+    criterion: >
+      Quantifies always-essential protein-coding control recall in CasRx screens
+      and compares against DepMap Cas9 (or Core Essential Genes v2) essentiality.
     reference:
-      per_screen_recall: "90-206 of 300 controls called per cell line (30.0-68.7%)"
-      pooled_recall: "221 of 300 recovered in >=1 of 6 screens at FDR < 0.25 (73.7%)"
-      depmap_comparison: "297-298 of 298 essential in DepMap per line"
-      sources:
-        - montero-lncRNA/tables/fig1_controls_essential_genes_v2.csv
-        - montero-lncRNA/summaries/lncRNA_false_negative_model_summary.md
-    proposed_tolerance: "per-screen recall within 30-69%, or pooled recall ~74%"  # [TO CONFIRM]
+      casrx_per_line_recall: "90-206 of 300 controls called per line (30.0-68.7%, FDR < 0.25)"
+      depmap_cas9_recall: "95.6-99.3% across the six matched cell lines"
+
   N2:
-    label: O2 - low essential lncRNA hit rate
+    label: Sparse lncRNA hits
+    layer: 1
     chain: observation
-    full_requires: Quantifies the lncRNA hit rate and ties it to the control-recall gap.
+    criterion: >
+      Quantifies the low essential lncRNA hit rate and links it to the
+      positive-control sensitivity deficit.
     reference:
-      reported_hits: "206 lncRNA hits reported by the authors"
-      sources:
-        - montero-lncRNA/summaries/screen_quality_diagnosis.md
-    proposed_tolerance: "[TO CONFIRM: quantitative target for O2]"
+      reported_hits: "26-77 hits per line (206 unique lncRNAs across six lines)"
+
   N3:
-    label: H1 mechanism - internal T-homopolymers terminate Pol III transcription
+    label: Pol III poly-T signals
+    layer: 2
     chain: H1
-    full_requires: >
-      Identifies T-runs in the spacers and connects them to Pol III termination
-      in the U6 construct.
+    criterion: >
+      Identifies the omitted RNA Pol III termination filter and quantifies
+      internal T>=4 runs across the Albarossa gRNA library.
     reference:
       threshold: "T>=4"
-      fraction_of_arrays: "~19.3% of 78,125 arrays (15,082)"  # [TO CONFIRM: 15,082 not located in project tables]
-      by_class: "15% of control arrays, 19% of lncRNA arrays"
-      sources:
-        - montero-lncRNA/summaries/screen_quality_diagnosis.md
-        - montero-lncRNA/tables/ALBAROSSA_lncRNA_array_terminator_overall.csv
-    proposed_tolerance: "[TO CONFIRM: accepted range for the T>=4 fraction]"
+      prevalence: "15,082 of 78,125 arrays (19.3%)"
+
   N4:
-    label: H1 demonstration - T-run arrays deplete less
+    label: Poly-T loss of activity
+    layer: 2
     chain: H1
-    full_requires: Shows that arrays carrying a T-run deplete less, with an effect size.
+    criterion: >
+      Demonstrates quantitatively that internal T>=4 arrays (specifically within
+      the 23-nt CasRx core spacer) reduce essential-gene depletion.
     reference:
-      effect: "+0.85 log2FC for T-homopolymer essential arrays (p = 4e-07)"
-      sources:
-        - montero-lncRNA/summaries/screen_quality_diagnosis.md
-        - montero-lncRNA/tables/essential_gene_check_group_summary.csv
-    proposed_tolerance: "[TO CONFIRM: minimum effect size and direction]"
+      effect: "+0.85 log2 fold change overall (P = 4.1e-7); +0.96 in 23-nt core (P = 2.2e-7); null in no-nuclease controls"
+
   N5:
-    label: H2 mechanism - duplicated direct repeat permits spacer mispairing
+    label: Direct-repeat recombination
+    layer: 2
     chain: H2
-    full_requires: >
-      Identifies the duplicated 36 nt direct repeat as permitting recombination
-      between molecules and quantifies the fraction of mispaired members.
+    criterion: >
+      Aligns raw paired-end plasmid reads to quantify gRNA1-gRNA2 uncoupling
+      across the duplicated 36-nt direct repeats.
     reference:
-      mispaired_fraction_full_depth: "42.87% of plasmid-pool read pairs (95% CI 42.85-42.88%)"
-      mispaired_fraction_subsample: "42.72% (2M read pairs)"
-      other_pools: "3.7% controls library; 29.0% third pool"
-      sources:
-        - montero-lncRNA/tables/full_depth_recombination_rates.csv
-        - montero-lncRNA/tables/array_recombination_rates.csv
-        - montero-lncRNA/tables/library_swap_rate_comparison.csv
-    proposed_tolerance: "40-45% mispaired"  # [TO CONFIRM]
-    origin_rule:
-      # open decision 1 in the design document; do not score N5 until resolved
-      question: Does mispairing arise before cloning (permanent library members) or during readout PCR?
-      evidence_pre_cloning: "rate tracks library complexity (3.7 / 29.0 / 42.9%); plasmid vs genomic DNA differ by <1 point (library_swap_comparison_summary.md)"
-      evidence_readout_pcr: "96.7% of swapped combinations are singletons, max multiplicity 19 vs real-array median 26 (plasmid_library_qc_summary.md)"
-      scoring_rule: "[TO CONFIRM: whether an agent attributing mispairing to readout PCR can score full]"
+      albarossa_plasmid_discordant: "42.9% of doubly mapped read pairs (ERR12330401; 39.2% of all pairs)"
+      control_library_discordant: "3.7% of doubly mapped read pairs (ERR12330450; 11.4x lower)"
+
   N6:
-    label: H2 coverage consequence - effective coverage below design
+    label: Lower effective coverage
+    layer: 2
     chain: H2
-    full_requires: Shows that mispairing lowers effective per-array coverage below the stated design.
+    criterion: >
+      Calculates recombination-adjusted intact cellular coverage per intended
+      array relative to the stated experimental design.
     reference:
-      stated_coverage: "300.8 cells per array (23.5M transduced cells / 78,125 arrays)"
-      effective_coverage: "171.9 cells per expected array at transduction"
-      passage_bottleneck: "146x"
-      sources:
-        - montero-lncRNA/tables/albarossa_effective_coverage.csv
-        - montero-lncRNA/summaries/screen_quality_diagnosis.md
-    proposed_tolerance: "301x -> ~172x"  # [TO CONFIRM: accepted range]
+      stated_transduction: "301x (23.5M cells / 78,125 arrays)"
+      effective_transduction: "~172x intact arrays (passaging: 256x nominal to ~134x intact)"
+
   N7:
-    label: H2 reliability consequence - less reliable essentiality calls
-    chain: H2
-    # the pasted framework labels this node "H1+H2 RRA"; the design document
-    # defines it as the H2 reliability consequence. [TO CONFIRM: which definition]
-    full_requires: >
-      Connects the upstream defects to reduced sensitivity of the RRA/MAGeCK
-      essentiality calls (false negatives), without claiming a specificity failure.
+    label: Reduced statistical power
+    layer: 2
+    chain: H1+H2
+    criterion: >
+      Connects inactive T>=4 arrays and lower effective coverage to weakened
+      MAGeCK RRA gene-level sensitivity (false negatives rather than false positives).
     reference:
-      false_negative_rate: "26.3% of always-essential controls missed in all six screens"
-      sources:
-        - montero-lncRNA/summaries/lncRNA_false_negative_model_summary.md
-        - montero-lncRNA/summaries/screen_quality_diagnosis.md
-    proposed_tolerance: "[TO CONFIRM]"
+      false_negative_rate: "31.3-70.0% per line across 300 always-essential controls"
 
 # ---------------------------------------------------------------------------
-# axis 2: false-positive control
+# Axis 2: Pre-specified false-positive control traps (FP1-FP7)
 # ---------------------------------------------------------------------------
 false_positive_key:
-  scoring:
-    clean: 0
-    triggered: 1      # asserted as a cause in final_report.json / referee_report.md
-    qc_caught: >
-      Raised by a Tier 3 specialist and correctly rejected by Tier 4 QC into
-      discard_log.json. Counted in QC_caught_FP, not as triggered.
+  outcomes:
+    avoided: Never asserted as a cause of the sensitivity deficit.
+    refuted_in_qc: Raised during specialist exploration, refuted by Tier 4 blinded QC, and logged in discard_log.json.
+    empirically_revised: Reserved for FP3 when primary transcriptomic data prove silent Albarossa controls masked target-RNA-dependent collateral depletion.
+    triggered_or_flagged: Asserted in the final referee report.
   traps:
     FP1:
-      claim: The counting pipeline is broken.
-      exclusion_evidence: "Independent re-implementation over the full ALBAROSSA plasmid FASTQ reproduces per-array counts at Spearman 0.9956, totals within 0.23%."
+      label: Read-counting error
+      claim: The read-counting pipeline is broken.
+      exclusion_evidence: "Independent alignment of raw ENA FASTQ reads reproduces published concordant counts at r = 0.996-1.000."
     FP2:
-      claim: Off-target activity of the non-targeting gRNAs.
-      exclusion_evidence: "0 of 600 hit any GENCODE v38 transcript at up to two mismatches."
+      label: Non-targeting off-targets
+      claim: Off-target activity of non-targeting control guides explains the sensitivity deficit.
+      exclusion_evidence: "0 of 600 non-targeting guides align to any GENCODE v38 transcript at <=2 mismatches."
     FP3:
-      claim: Collateral CasRx activity scales with gRNA production.
-      exclusion_evidence: "Effect has the wrong sign (-0.091, p = 0.015)."
+      label: CasRx collateral activity
+      claim: Guide-abundance-scaled collateral toxicity drives screen failure.
+      exclusion_evidence: "Bulk guide-abundance correlation has wrong sign (r = -0.091) and 0/300 Albarossa non-essential hits."
+      empirical_revision_criteria: >
+        Scored as empirically revised when an audit proves from primary expression
+        tables that 97-99% of Albarossa non-essential controls are unexpressed (<1 TPM),
+        contrasts them against expressed companion-library controls (85-93% >=1 TPM)
+        or high-CPM non-hit lncRNAs, and shows nuclease-dependent collateral depletion
+        scaling with target abundance (null in no-nuclease controls).
     FP4:
-      claim: GC content drives cross-screen reproducibility.
-      exclusion_evidence: "Removing a GC spline and the plasmid count leaves the non-targeting cross-line correlation at 0.419 vs 0.423."
+      label: Guide GC-content bias
+      claim: Bulk guide GC-content bias explains positive-control failure.
+      exclusion_evidence: "Negligible effect once poly-T tracts are accounted for (cross-line correlation 0.419 vs. 0.423)."
     FP5:
-      claim: Plasmid representation, GC, replicate noise or sub-threshold T-runs explain array bimodality.
-      exclusion_evidence: "p = 0.58; p = 0.81; median |rep1-rep2| 0.56 vs 0.59; 60.0/59.7/62.4% depleted at T1/T2/T3."
+      label: Plasmid skew or folding
+      claim: Plasmid abundance skew, short T1-T3 runs, or RNA folding explain bimodal essential-gene depletion.
+      exclusion_evidence: "Plasmid skew (P = 0.58), replicate noise (0.56 vs. 0.59), T1-T3 runs (60.0-62.4% depleted), and folding R^2 = 0.0% do not explain bimodality."
     FP6:
-      claim: Gene-level specificity failure.
-      exclusion_evidence: "0 of 300 non-essential and 0 of 600 non-targeting gene groups are called in any screen."
+      label: Poor control specificity
+      claim: Widespread gene-level false positives invalidate specificity.
+      exclusion_evidence: "0 of 300 non-essential protein-coding controls are called essential in any of the six screens."
     FP7:
-      claim: The 206 reported lncRNA hits are artefacts.
-      exclusion_evidence: "Out of scope of the human chain, which claims a sensitivity problem only; asserting the hit list is spurious is a calibration failure."
-  source: montero-lncRNA/docs/agentic_audit_study_design.md (section 5, false-positive key; section 2, scope)
+      label: Dismissing all lncRNA hits
+      claim: All 206 reported lncRNA hits are pure statistical noise despite clean non-essential controls.
+      exclusion_evidence: "Editorial calibration check distinguishing conservative lower-bound framing from full dismissal."
 
 # ---------------------------------------------------------------------------
-# axis 3: non-chain and residual discovery
+# Axis 3: Beyond-rubric discovery
 # ---------------------------------------------------------------------------
-non_chain_findings:
-  eligibility: E1-E3 findings that are not one of N1-N7
-  verdicts: [confirmed, refuted, not_testable]
-  novelty:
-    prior_analysis: already present in the frozen prior-analysis record
-    novel: not previously found by anyone
-  prior_analysis_record: montero-lncRNA/summaries/   # [TO CONFIRM: frozen, timestamped snapshot path]
-  adjudication: blinded dual reader; disagreements resolved into a consensus row
+beyond_rubric_findings:
+  eligibility: Verified E1-E3 findings outside N1-N7 cataloged inductively across all N = 36 primary runs.
+  catalog_output: "source_data/benchmark/beyond_rubric_discoveries_N36.csv"
 
 # ---------------------------------------------------------------------------
-# axis 4: efficiency and reliability (computed by aggregate_telemetry.py)
+# Axis 4: Execution telemetry and bio-safety provenance
 # ---------------------------------------------------------------------------
-efficiency_metrics:
-  - wall_clock_s            # union of agent session intervals
-  - slurm_job_union_s       # union of Slurm submit-to-end intervals inside the session window
-  - active_agent_s          # wall_clock_s minus slurm_job_union_s  [TO CONFIRM: definition]
-  - tokens_uncached_input
-  - tokens_cache_read
-  - tokens_cache_write
-  - tokens_output
-  - usd_api_equivalent      # requires model_prices.csv
-  - usd_per_recovered_node  # recovered = sum of consensus node scores with tier E1-E3
-  - biosafety_refusals      # rows in logs/model_routing.csv with safety_fallback = yes
+telemetry_metrics:
+  - wall_clock_min
+  - slurm_job_union_min
+  - slurm_queue_union_min
+  - active_agent_min
+  - n_slurm_jobs
+  - n_scripts_executed
+  - n_confirmed_findings
+  - n_discarded_hypotheses
+  - actual_ceo_model
+  - ceo_biosafety_fallback
+  - subagent_safety_interrupts

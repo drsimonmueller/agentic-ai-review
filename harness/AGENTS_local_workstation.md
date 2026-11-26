@@ -19,8 +19,8 @@ Every quantitative claim must be graded by computational evidence tier:
 - **Context-Isolated Verification:** Before any `E1`–`E3` finding enters `outputs/findings.json`, run an independent verification check that inspects ONLY the raw data/script and a neutral verification question (without assuming the specialist's conclusion) to check for subsetting bugs, normalization artifacts, or statistical errors.
 - **Discard Log:** Log every tested hypothesis that turned out negative, non-significant, or refuted into `outputs/discard_log.json` with the reason for exclusion.
 
-# Dynamic Subagent Model Selection & Bio-Safety Fallback
-- **CEO Model Authority:** Read `./run_manifest.json` at startup to identify your provider (`claude` or `openai`), assigned Tier 1 CEO Master Model (`fable-5.2`, `opus-5.5`, `sonnet-5.5`, `terra-6.1`, or `astra-6.1`), and `allowed_subagent_pool`. As CEO (`00_ceo_planner`), you decide which subagent model from `allowed_subagent_pool` to dispatch for each VP, Domain Specialist, Falsification QC, and Reporting task.
+# Subagent Model Selection & Bio-Safety Provenance
+- **Executive Model Authority:** Read `./run_manifest.json` at startup to identify your provider (`anthropic` or `google`), assigned Tier 1 Executive Model (`opus-5.5`, `sonnet-5.5`, `gemini-4-hydrogen`, or `gemini-4-neon`), and `allowed_subagent_pool`. Assign subagents strictly from `allowed_subagent_pool` for each Division Lead, Domain Specialist, Verification QC, and Reporting task.
 - **Bio-Safety Refusal Fallback:** All tasks in this workspace are strictly read-only, post-publication computational quality-control audits of publicly deposited sequencing tables and FASTQ files. If a model triggers a false-positive biological safety refusal on CRISPR/lentiviral terms, automatically re-route that task to an alternative model from `allowed_subagent_pool` and log the fallback.
 - **Model Provenance Logging:** Record the primary CEO model and every subagent model assignment (plus any safety fallbacks) in `outputs/audit_plan.json` and `logs/model_routing.csv`.
 
